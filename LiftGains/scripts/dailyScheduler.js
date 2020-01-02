@@ -137,7 +137,7 @@ function AddWorkoutEvent(e){
             let newPropety = value.id;
             userInput[newPropety] = value.value;
         });
-        //if(go){
+        if(go){
             createCard(cardBody,cardTemp,userInput);
             let newCard = document.createElement('div');
             newCard.className = 'add';
@@ -145,10 +145,10 @@ function AddWorkoutEvent(e){
             newCard.addEventListener('click',(e) =>{AddWorkoutEvent(e)});
             //console.log(parent);
             parent.appendChild(newCard);
-        //}
-        //else{
-        //    userInput = {};
-        //}
+        }
+        else{
+           userInput = {};
+        }
     });
 }
 
