@@ -143,7 +143,6 @@ function AddWorkoutEvent(e){
             newCard.className = 'add';
             newCard.innerHTML = NewWorkoutCard;
             newCard.addEventListener('click',(e) =>{AddWorkoutEvent(e)});
-            //console.log(parent);
             parent.appendChild(newCard);
         }
         else{
