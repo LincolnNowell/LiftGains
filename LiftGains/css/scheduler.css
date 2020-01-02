@@ -1,0 +1,39 @@
+.tile{
+    border: 2px #e53935 solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.time{
+    background-color: #e53935;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+.days{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.col{
+  margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+  text-align: center;
+
+}
