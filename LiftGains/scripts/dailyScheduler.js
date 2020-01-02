@@ -7,8 +7,21 @@ const NewWorkoutCard = `<div class="card red darken-1">
 </div>
 </div>`;
 
+const card = (form) =>{
+    let cahd = document.createElement('div');
+    cahd.className = 'card red darken-1';
+    let innerCard = document.createElement('div');
+    innerCard.className = 'card-content white-text center';
+    if(form){
+        innerCard.appendChild(form);
+    }
+    cahd.appendChild(innerCard);
+    return cahd;
+}
+
 cols.forEach(col =>{
     let card = document.createElement('div');
+    card.className ='add';
     card.innerHTML = NewWorkoutCard;
     col.appendChild(card);
 });
@@ -18,26 +31,29 @@ let btn = document.querySelectorAll('.btn-floating');
 
 function createCard(body,form,userInfo){
     body.removeChild(form);
+    let Cards = card();
+    let content = Cards.querySelector('.card-content');
     let time = document.createElement('SPAN');
     time.className ='card-title';
     //parse time input into 12 hour clock
     let [h,m] = userInfo['time'].split(':');
     time.innerText = (h%12+12*(h%12==0))+":"+m; 
     time.innerText += (h >= 12 ? ' PM' : ' AM');
-    body.appendChild(time);
+    content.appendChild(time);
 
     let pTag = document.createElement('p');
     pTag.innerText = userInfo['workout'];
-    body.appendChild(pTag);
+    content.appendChild(pTag);
     let pTag2 = document.createElement('p');
     pTag2.innerText = `${userInfo['sets']} X ${userInfo['reps']}`;
-    body.appendChild(pTag2);
+    content.appendChild(pTag2);
+    Cards.appendChild(content)
+    body.appendChild(Cards);
 }
 
 function AddWorkoutEvent(e){
     let parent = e.currentTarget.closest('.col');
-    console.log(parent);
-    let addBtn = e.currentTarget.parentElement;
+    let addBtn = e.currentTarget.closest('.add');
     let cardBody = addBtn.parentElement;
     addBtn.remove();
 
@@ -107,7 +123,8 @@ function AddWorkoutEvent(e){
 
 
     form.appendChild(btn);
-    cardBody.appendChild(form);
+    let cardTemp = card(form);
+    cardBody.appendChild(cardTemp);
 
     btn.addEventListener('click',(e) =>{
         let userInput = {};
@@ -120,17 +137,18 @@ function AddWorkoutEvent(e){
             let newPropety = value.id;
             userInput[newPropety] = value.value;
         });
-        if(go){
-            createCard(cardBody,form,userInput);
+        //if(go){
+            createCard(cardBody,cardTemp,userInput);
             let newCard = document.createElement('div');
+            newCard.className = 'add';
             newCard.innerHTML = NewWorkoutCard;
             newCard.addEventListener('click',(e) =>{AddWorkoutEvent(e)});
-            console.log(parent);
+            //console.log(parent);
             parent.appendChild(newCard);
-        }
-        else{
-            userInput = {};
-        }
+        //}
+        //else{
+        //    userInput = {};
+        //}
     });
 }
 
