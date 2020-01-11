@@ -18,3 +18,5 @@ exports.comparePassword = function(plainPass, hashword, callback) {
            callback(err);
    });
 };
+
+module.exports = bcrypt;

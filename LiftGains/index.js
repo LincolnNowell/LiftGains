@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('./database/mongoose');
+require('./database/mongoose');
 
 const app = express();
 app.use(express.urlencoded());
