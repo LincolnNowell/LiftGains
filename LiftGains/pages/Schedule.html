@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/mainSchduler.css">
     <title>Workout Scheduler</title>
 </head>
-<body>
+<body>  
     <nav>
         <div class="nav-wrapper red darken-4">
           <a href="#" class="brand-logo">LiftGains</a>
@@ -20,25 +20,36 @@
           </ul>
         </div>
     </nav>
-    <div class="sign_in">
-      <h4 id="title">Reset</h4 id="title">
-        <form class="col s12" method="POST" action="/password-reset">
-          <div class="row">
-            <div class="input-field col s12">
-            <input id="name" type="text" name="name"required>
-            <label for="Username">UserName</label>
+    <div class="row">
+        <div class="col s3" id="calender">
+            <div class="title">
+                <i id="left" class="fas fa-arrow-left"></i>
+                <h3 id="month">Month</h3>
+                <i id="right" class="fas fa-arrow-right"></i>
             </div>
-          </div>
-          <p id="instructions">Enter your account username, an email will be sent to your email</p>
-          <button id="log" class="btn waves-effect waves-light red darken-1" type="submit" name="action">Reset
-          </button>
-        </form>
+            <div class="day">
+                <p>Su</p>
+                <p>M</p>
+                <p>T</p>
+                <p>W</p>
+                <p>Th</p>
+                <p>Fr</p>
+                <p>Sa</p>
+            </div>
+            <div class="days">
+            </div>
+            <a class="waves-effect waves-light btn-large red darken-1 #e53935" id="save">Save</a>
+        </div>
+        <div class="col s9">
+            <center class="schedule">
+
+            </center>
+        </div>
     </div>
-    <div class="back"></div>
-  </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+    <script src="https://kit.fontawesome.com/b15cd5eda0.js"></script>
+    <script src="/scripts/mainScheduler.js"></script>
 </body>
 </html>
