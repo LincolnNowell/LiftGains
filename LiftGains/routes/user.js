@@ -1,5 +1,6 @@
 const express = require('express')
 const Users = require('../models/user');
+let session = require('express-session');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 
@@ -8,11 +9,11 @@ router.post('/submit-form',async(req,res)=>{
     const pwd = req.body.password;
     const user = await Users.findOne({name});
     if(user && bcrypt.compare(pwd,user.password)){
-        res.status(200).redirect('/pages/scheduler.html'); 
+        req.session.Auth = name;
+        res.status(200).redirect('/pages/Schedule.html'); 
     }else{
         res.status(200).redirect('/pages/login.html');
     }
-
     res.end();
 })
 
@@ -32,13 +33,14 @@ router.post('/create-account',async(req,res)=>{
         res.status(200).redirect('/pages/login.html'); 
     }else{
         NewUser.save();
-        res.status(200).redirect('/pages/scheduler.html');
+        res.status(200).redirect('/pages/Schedule.html');
     }
 
     res.end();
 })
 
 router.post('/Save',async(req, res)=>{
+    console.log(req.session.Auth);
     console.log(req.body);
 });
 

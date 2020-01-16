@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
+let session = require('express-session');
 require('./database/mongoose');
 
 const app = express();
 app.use(express.urlencoded());
+
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
 const userRouter = require('./routes/user.js');
 app.use(userRouter);

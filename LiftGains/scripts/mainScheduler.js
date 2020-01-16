@@ -1,5 +1,4 @@
 let Calender = {
-    'name': '',
     'January': [[]],
     'February': [[]],
     'March': [[]],
