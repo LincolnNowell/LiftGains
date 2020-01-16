@@ -80,10 +80,10 @@ const addCalenderListners = () => {
             e.currentTarget.style.borderRadius = '50%';
 
             //Clear Schedule  of items
-            let schedule = document.querySelector('.schedule');
-            for (let index = 1; index < schedule.children.length; index++) {
-                schedule.removeChild(schedule.children[index]);
-            }
+            let schedule = document.querySelectorAll('.item');
+            schedule.forEach(element =>{
+                element.remove();
+            })
         })
     }
 }
@@ -155,8 +155,6 @@ SaveBtn.addEventListener('click', (e) =>{
     Calender[monthSelected][Number.parseInt(daySelected)] = ItemArr;
 });
 
-
-
 //adding items to list
 
 
@@ -195,7 +193,7 @@ function createCard(exercise,reps, sets, time){
             <p>${sets} X ${reps}</p>
         </div>
         <div class="card-action">
-            <a href="#">Complete</a>
+            <a href="#" class="complete">Complete</a>
         </div>
     </div>`;
 }
@@ -224,6 +222,9 @@ let btn = document.querySelectorAll('.btn');
                 let divs = document.createElement('div');
                 divs.className = 'item';
                 divs.innerHTML = createCard(userInput['workout'],userInput['reps'],userInput['sets'],times);
+                divs.addEventListener('click',(e)=>{
+                    e.currentTarget.remove();
+                })
                 schedule.appendChild(divs);
             }else{
                 userInput = {};
