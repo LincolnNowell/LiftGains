@@ -38,4 +38,8 @@ router.post('/create-account',async(req,res)=>{
     res.end();
 })
 
+router.post('/Save',async(req, res)=>{
+    console.log(req.body);
+});
+
 module.exports = router;

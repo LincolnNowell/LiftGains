@@ -1,4 +1,5 @@
 let Calender = {
+    'name': '',
     'January': [[]],
     'February': [[]],
     'March': [[]],
@@ -153,6 +154,7 @@ SaveBtn.addEventListener('click', (e) =>{
         ItemArr.push(ItemContainer);
     })
     Calender[monthSelected][Number.parseInt(daySelected)] = ItemArr;
+    $.post('/Save',Calender);
 });
 
 //adding items to list
