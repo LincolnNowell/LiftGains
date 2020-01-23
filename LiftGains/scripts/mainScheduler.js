@@ -1,23 +1,31 @@
 let Calender = {
-    'January': [[]],
-    'February': [[]],
-    'March': [[]],
-    'April': [[]],
-    'May': [[]],
-    'June': [[]],
-    'July': [[]],
-    'August': [[]],
-    'September': [[]],
-    'October': [[]],
-    'November': [[]],
-    'December': [[]]
+    'January': [],
+    'February': [],
+    'March': [],
+    'April': [],
+    'May': [],
+    'June': [],
+    'July': [],
+    'August': [],
+    'September': [],
+    'October': [],
+    'November': [],
+    'December': []
 }
 
 class items {
-    constructor(time,exercise,repsAndSets){
+    constructor(day,time,exercise,repsAndSets){
+        this.day = day;
         this.time = time;
         this.exercise = exercise;
         this.repsAndSets = repsAndSets;
+    }
+}
+
+class container {
+    constructor(month,arr){
+        this.month = month;
+        this.arr = arr;
     }
 }
 
@@ -78,6 +86,15 @@ const addCalenderListners = () => {
             });
             e.currentTarget.style.backgroundColor = '#ef5350';
             e.currentTarget.style.borderRadius = '50%';
+
+            let workouts = document.querySelectorAll('.item');
+            let monthSelected = document.getElementById('month').innerText;
+            workouts.forEach(element =>{
+                let item = element.querySelector('.card-content');
+                let ItemContainer = new items(e.currentTarget.innerText,item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
+                Calender[monthSelected].push(ItemContainer);
+            })
+            console.log(Calender);
 
             //Clear Schedule  of items
             let schedule = document.querySelectorAll('.item');
@@ -145,15 +162,19 @@ SaveBtn.addEventListener('click', (e) =>{
         }
     }
 
-    let ItemArr = Array();
     let workouts = document.querySelectorAll('.item');
     workouts.forEach(element =>{
         let item = element.querySelector('.card-content');
-        let ItemContainer = new items(item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
-        ItemArr.push(ItemContainer);
+        if(!daySelected) daySelected = dt.getDate().toString();
+        let ItemContainer = new items(daySelected,item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
+        Calender[monthSelected].push(ItemContainer);
     })
-    Calender[monthSelected][Number.parseInt(daySelected)] = ItemArr;
-    $.post('/Save',Calender);
+    for(let month = 0; month < monthNames.length; month++){
+        if(Calender[monthNames[month]].length){
+            let contain = new container(monthNames[month],Calender[monthNames[month]]);
+            $.post('/Save',contain);
+        }
+    }
 });
 
 //adding items to list

@@ -33,6 +33,7 @@ router.post('/create-account',async(req,res)=>{
         res.status(200).redirect('/pages/login.html'); 
     }else{
         NewUser.save();
+        req.session.Auth = name;
         res.status(200).redirect('/pages/Schedule.html');
     }
 
@@ -40,8 +41,10 @@ router.post('/create-account',async(req,res)=>{
 })
 
 router.post('/Save',async(req, res)=>{
-    console.log(req.session.Auth);
-    console.log(req.body);
+    let name = req.session.Auth;
+    let body = req.body;
+    //await Users.findOneAndUpdate({"name":name},{$set :{"item": body}});
+    await Users.findOneAndUpdate({"name":name},{$push :{"items": body}});
 });
 
 module.exports = router;
