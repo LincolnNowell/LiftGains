@@ -13,6 +13,18 @@ let Calender = {
     'December': []
 }
 
+$.get('/items', (data, status) =>{
+    if(data != 0){
+        for(let i of data){
+            for(index of i.arr){
+                Calender[i.month].push(index);
+            }
+        }
+    }
+});
+
+console.log(Calender);
+
 class items {
     constructor(day,time,exercise,repsAndSets){
         this.day = day;

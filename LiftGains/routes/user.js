@@ -40,6 +40,16 @@ router.post('/create-account',async(req,res)=>{
     res.end();
 })
 
+router.get('/items', async(req,res) =>{
+    const name = req.session.Auth;
+    const user = await Users.findOne({name});
+    if(user){
+        res.send(user.items);
+    }else{
+        res.send(0);
+    }
+})
+
 router.post('/Save',async(req, res)=>{
     let name = req.session.Auth;
     let body = req.body;
