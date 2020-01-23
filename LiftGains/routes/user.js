@@ -50,10 +50,14 @@ router.get('/items', async(req,res) =>{
     }
 })
 
+router.post('/clear',async(req, res)=>{
+    let name = req.session.Auth;
+    await Users.findOneAndUpdate({"name":name},{$set :{"items": []}});
+})
+
 router.post('/Save',async(req, res)=>{
     let name = req.session.Auth;
     let body = req.body;
-    //await Users.findOneAndUpdate({"name":name},{$set :{"item": body}});
     await Users.findOneAndUpdate({"name":name},{$push :{"items": body}});
 });
 

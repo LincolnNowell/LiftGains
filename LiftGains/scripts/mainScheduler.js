@@ -211,12 +211,12 @@ saveBtn.addEventListener('click',(e)=>{
         let ItemContainer = new items(daySelected,item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
         Calender[monthSelected].push(ItemContainer);
     })
-    console.log(Calender);
 })
 
 //Submit button event
 let SubBtn = document.querySelector('#save');
 SubBtn.addEventListener('click', (e) =>{
+    $.post('/clear');
     for(let month = 0; month < monthNames.length; month++){
         if(Calender[monthNames[month]].length){
             let contain = new container(monthNames[month],Calender[monthNames[month]]);
