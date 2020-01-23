@@ -28,11 +28,26 @@ class container {
         this.arr = arr;
     }
 }
+let daySelected = 0;
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 const monthOffsets = [3,6,0,3,5,1,3,5,2,4,0,2];
+
+function createCards(exercise,reps_sets, time){
+    return `
+    <div class="card red darken-1">
+        <div class="card-content white-text center">
+            <span class="card-title">${time}</span>
+            <p>${exercise}</p>
+            <p>${reps_sets}</p>
+        </div>
+        <div class="card-action">
+            <a href="#" class="complete">Complete</a>
+        </div>
+    </div>`;
+}
 
 let calender = document.querySelector(".days");
 
@@ -58,6 +73,7 @@ const selectCurrentDay = () =>{
         if(element.innerText === dt.getDate().toString()){
             element.style.backgroundColor = '#ef5350';
             element.style.borderRadius = '50%';
+            daySelected = Number.parseInt(element.innerText);
         }
     });
     let month = document.getElementById('month');
@@ -87,20 +103,34 @@ const addCalenderListners = () => {
             e.currentTarget.style.backgroundColor = '#ef5350';
             e.currentTarget.style.borderRadius = '50%';
 
-            let workouts = document.querySelectorAll('.item');
-            let monthSelected = document.getElementById('month').innerText;
-            workouts.forEach(element =>{
-                let item = element.querySelector('.card-content');
-                let ItemContainer = new items(e.currentTarget.innerText,item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
-                Calender[monthSelected].push(ItemContainer);
-            })
-            console.log(Calender);
+            daySelected = Number.parseInt(e.currentTarget.innerText);
 
             //Clear Schedule  of items
             let schedule = document.querySelectorAll('.item');
             schedule.forEach(element =>{
                 element.remove();
             })
+            
+            let month = document.getElementById('month');
+            let CurrentItems = Calender[month.innerText].filter(element =>{
+                console.log(element.day);
+                if(element.day === daySelected.toString()){
+                    return element;
+                }
+            })
+
+            if(CurrentItems.length > 0){
+                CurrentItems.forEach(element =>{
+                    let Sched = document.querySelector('.schedule');
+                    let div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = createCards(element.exercise,element.repsAndSets,element.time);
+                    div.addEventListener('click',(e)=>{
+                        e.currentTarget.remove();
+                    })
+                    Sched.append(div);
+                })
+            }
         })
     }
 }
@@ -150,9 +180,9 @@ leftArrow.addEventListener('click',(e) =>{
     }
 });
 
-//Save button event
-let SaveBtn = document.querySelector('#save');
-SaveBtn.addEventListener('click', (e) =>{
+//Save button
+let saveBtn = document.querySelector('#saveContent');
+saveBtn.addEventListener('click',(e)=>{
     let monthSelected = document.getElementById('month').innerText;
     let daySelected = '';
     let Calenderdays = document.querySelectorAll('.num');
@@ -169,6 +199,12 @@ SaveBtn.addEventListener('click', (e) =>{
         let ItemContainer = new items(daySelected,item.children[0].innerText,item.children[1].innerText,item.children[2].innerText);
         Calender[monthSelected].push(ItemContainer);
     })
+    console.log(Calender);
+})
+
+//Submit button event
+let SubBtn = document.querySelector('#save');
+SubBtn.addEventListener('click', (e) =>{
     for(let month = 0; month < monthNames.length; month++){
         if(Calender[monthNames[month]].length){
             let contain = new container(monthNames[month],Calender[monthNames[month]]);
