@@ -6,7 +6,12 @@ require('./database/mongoose');
 const app = express();
 app.use(express.urlencoded());
 
-app.use(session({ secret: 'Taco', cookie: { maxAge: 60000 }}))
+app.use(session(
+    { secret: 'Taco', 
+    resave: true,
+    cookie: { maxAge: 8*60*60*1000 },
+    saveUninitialized: true,
+}))
 
 const userRouter = require('./routes/user.js');
 app.use(userRouter);

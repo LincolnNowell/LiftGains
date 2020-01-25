@@ -1,6 +1,7 @@
 const express = require('express')
 const Users = require('../models/user');
 let session = require('express-session');
+const nodemailer = require('nodemailer')
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 
@@ -46,7 +47,41 @@ router.get('/items', async(req,res) =>{
     if(user){
         res.send(user.items);
     }else{
-        res.send(0);
+        res.end();
+    }
+})
+
+router.post('/password-reset',async(req,res) =>{
+    name = req.body.name;
+    const user = await Users.findOne({name});
+    if(user){
+        let transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: 'liftgainweb@gmail.com',
+              pass: 'L1ftBr0s'
+            }
+        });
+          
+        let mailOptions = {
+            from: 'liftgainsweb@gmail.com',
+            to: 'lincolnnowell@gmail.com',
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!',
+            html: '<a href="http://localhost:5000/pages/passwordChange.html>Reset</a>"'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+    }
+    else
+    {
+        res.redirect('/pages/passwordReset.html');
     }
 })
 
