@@ -51,6 +51,16 @@ router.get('/items', async(req,res) =>{
     }
 })
 
+router.get('/user', async(req,res) =>{
+    const name = req.session.Auth;
+    const user = await Users.findOne({name});
+    if(user){
+        res.send(user.name);
+    }else{
+        res.end();
+    }
+})
+
 router.post('/password-reset',async(req,res) =>{
     name = req.body.name;
     const user = await Users.findOne({name});

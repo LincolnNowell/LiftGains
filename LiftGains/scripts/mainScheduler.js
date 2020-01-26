@@ -13,6 +13,10 @@ let Calender = {
     'December': []
 }
 
+$.get('/user',(data,status) =>{
+    if(data){document.getElementById('sign').innerText = data;}
+})
+
 $.get('/items', (data, status) =>{
     if(data != 0){
         for(let i of data){
@@ -23,7 +27,6 @@ $.get('/items', (data, status) =>{
     }
 });
 
-console.log(Calender);
 
 class items {
     constructor(day,time,exercise,repsAndSets){
