@@ -75,9 +75,9 @@ router.post('/password-reset',async(req,res) =>{
           
         let mailOptions = {
             from: 'liftgainsweb@gmail.com',
-            to: 'lincolnnowell@gmail.com',
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!',
+            to: user.email,
+            subject: 'Password Reset',
+            text: 'Click link to reset password',
             html: '<a href="http://localhost:5000/pages/passwordChange.html>Reset</a>"'
           };
           
