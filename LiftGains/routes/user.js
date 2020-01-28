@@ -61,6 +61,10 @@ router.get('/user', async(req,res) =>{
     }
 })
 
+router.post('/password-reset', async(req,res)=>{
+    req.session.Auth = req.body.name;
+})
+
 router.post('/password-reset',async(req,res) =>{
     name = req.body.name;
     const user = await Users.findOne({name});
@@ -93,6 +97,12 @@ router.post('/password-reset',async(req,res) =>{
     {
         res.redirect('/pages/passwordReset.html');
     }
+})
+
+router.post('/reset', async(req, res) =>{
+    let name = req.session.Auth;
+    let pwd = req.body.pwd;
+    await Users.findOneAndUpdate({"name":name},{$set :{"password": pwd}});
 })
 
 router.post('/clear',async(req, res)=>{
